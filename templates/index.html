@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Text Summarizer</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; color: #333; margin: 2em; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        textarea { width: 95%; height: 200px; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        h1, h2, h3 { color: #0056b3; }
+        .results-box { margin-top: 20px; padding: 15px; background: #e9ecef; border-left: 5px solid #007bff; }
+        .metrics { display: flex; justify-content: space-around; padding: 10px; background-color: #ddeeff; border-radius: 4px; margin-bottom: 15px;}
+        .metric-item { text-align: center; }
+        .metric-item span { font-size: 1.5em; font-weight: bold; }
+        /* New styles for history */
+        .history-section { margin-top: 40px; }
+        .history-item { padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; background: #fafafa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 AI Text Summarizer</h1>
+        <form method="POST">
+            <textarea name="article" placeholder="Paste your long article here...">{{ request.form['article'] }}</textarea>
+            <button type="submit">Summarize</button>
+        </form>
+
+        {% if results %}
+        <div class="results-box">
+            <h2>Latest Result</h2>
+            <div class="metrics">
+                <div class="metric-item">Original Word Count<br><span>{{ results.original_wc }}</span></div>
+                <div class="metric-item">Summary Word Count<br><span>{{ results.summary_wc }}</span></div>
+                <div class="metric-item">Readability (Flesch Score)<br><span>{{ results.readability_score | round(2) }}</span></div>
+            </div>
+            <h3>Generated Summary</h3>
+            <p>{{ results.summary_text }}</p>
+        </div>
+        {% endif %}
+
+        {% if history %}
+        <div class="history-section">
+            <h2>📜 Summary History</h2>
+            {% for item in history %}
+            <div class="history-item">
+                <p><strong>Summary ({{ item.summary_wc }} words):</strong> {{ item.summary_text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
