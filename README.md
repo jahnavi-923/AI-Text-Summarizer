@@ -126,7 +126,3 @@ This project was a practical, hands-on journey through the entire lifecycle of a
 -   **Importance of Project Structure:** Creating a well-organized project with separate folders, a `requirements.txt` file, and a good `README.md` is crucial for maintainability and collaboration.
 
 ---
-
-## 👨‍💻 Author
-
--   **Kalyan** ([Bunty722](https://github.com/Bunty722))
